@@ -112,3 +112,4 @@
 /home/ievel1/git/H3_programmering/c#_opgaver/TodoApi/obj/Debug/net9.0/TodoApi.pdb
 /home/ievel1/git/H3_programmering/c#_opgaver/TodoApi/obj/Debug/net9.0/TodoApi.genruntimeconfig.cache
 /home/ievel1/git/H3_programmering/c#_opgaver/TodoApi/obj/Debug/net9.0/ref/TodoApi.dll
+/home/ievel1/git/H3_programmering/c#_opgaver/TodoApi/obj/Debug/net9.0/TodoApi.sourcelink.json
