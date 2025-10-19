@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# SQLite database files (project-level)
+web_gui_api/db.sqlite3
+web_gui_api/db.sqlite3-journal
+web_gui_api/db.sqlite3-wal
+web_gui_api/db.sqlite3-shm
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+web_gui_api/server.log
+
+# Do not commit tests (as requested)
+web_gui_api/store/tests.py
