@@ -1,6 +1,4 @@
-# Django Web API for GUI Programming exercise
-
-This small Django + Django REST Framework project provides a REST API with two models: Category and Product.
+# Django Web API for GUI
 
 Models:
 
