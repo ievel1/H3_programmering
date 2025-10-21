@@ -1,7 +1,7 @@
-export default function Header() {
+export default function Header({ name }) {
   return (
     <header>
-      <h2>Navn: William S. Ford</h2>
+      <h2>Navn: {name}</h2>
     </header>
   );
 }

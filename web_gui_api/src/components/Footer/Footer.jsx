@@ -1,7 +1,7 @@
-export default function Footer() {
+export default function Footer({age}) {
     return(
         <>
-        <footer>Alder: 26</footer>
+        <footer>Alder: {age}</footer>
         </>
     );
 }
