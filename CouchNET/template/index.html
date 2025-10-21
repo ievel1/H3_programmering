@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo list</title>
+    <link rel="stylesheet" href="styles.css">
+        <!-- PouchDB CDN (works in the browser) -->
+        <script src="https://cdn.jsdelivr.net/npm/pouchdb@8.0.1/dist/pouchdb.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Todo tasks</h1>
+    </header>
+        <main>
+                <form id="todo-form">
+                        <label>
+                                Title
+                                <input id="title" required />
+                        </label>
+                        <label>
+                                Description
+                                <input id="description" />
+                        </label>
+                        <label>
+                                Done?
+                                <input id="isdone" type="checkbox" />
+                        </label>
+                        <button type="submit">Save</button>
+                </form>
+
+                <h2>Todos</h2>
+                <ul id="todos"></ul>
+        </main>
+
+        <script>
+        // Local PouchDB and remote CouchDB
+        // NOTE: Exposes credentials in the browser. OK for local dev; not for production.
+        const localDB = new PouchDB('todos');
+        const remoteDB = new PouchDB('http://admin:Ievel142@localhost:5984/todos');
+
+        // Continuous two-way sync
+        localDB.sync(remoteDB, { live: true, retry: true })
+            .on('error', err => console.error('sync error', err));
+
+        // Render all docs
+        async function render() {
+            const list = document.getElementById('todos');
+            const res = await localDB.allDocs({ include_docs: true });
+            list.innerHTML = '';
+            res.rows
+                .map(r => r.doc)
+                .filter(d => d && d.type === 'todo')
+                .sort((a, b) => (a.title || '').localeCompare(b.title || ''))
+                .forEach(doc => {
+                    const li = document.createElement('li');
+                    li.textContent = `${doc.title} — ${doc.description || ''} — ${doc.isdone ? 'true' : 'false'}`;
+                    list.appendChild(li);
+                });
+        }
+
+        // Upsert by title using deterministic _id
+        function idFor(title) {
+            return `todo:${title.trim().toLowerCase()}`;
+        }
+
+        async function upsertTodo(title, description, isdone) {
+            const _id = idFor(title);
+            try {
+                const existing = await localDB.get(_id);
+                const updated = { ...existing, type: 'todo', title, description, isdone: !!isdone };
+                await localDB.put(updated);
+            } catch (e) {
+                if (e.status === 404) {
+                    await localDB.put({ _id, type: 'todo', title, description, isdone: !!isdone });
+                } else {
+                    throw e;
+                }
+            }
+        }
+
+        document.getElementById('todo-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('title').value.trim();
+            const description = document.getElementById('description').value.trim();
+            const isdone = document.getElementById('isdone').checked;
+            if (!title) return;
+            try {
+                await upsertTodo(title, description, isdone);
+                await render();
+                e.target.reset();
+            } catch (err) {
+                console.error(err);
+                alert('Failed to save todo');
+            }
+        });
+
+        // Initial load and refresh when something changes locally
+        localDB.changes({ since: 'now', live: true }).on('change', render);
+        render();
+        </script>
+</body>
+</html>
