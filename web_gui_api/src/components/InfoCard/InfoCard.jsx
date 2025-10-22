@@ -1,3 +1,5 @@
+import "./InfoCard.css";
+
 export default function InfoCard({hobbyOne, hobbyTwo, hobbyThree, imageSrc, link}) {
     return(
         <section>
@@ -19,7 +21,7 @@ export default function InfoCard({hobbyOne, hobbyTwo, hobbyThree, imageSrc, link
                 />
                 </a>
             )}
-            <ul>
+            <ul className="info-list">
                 <li>{hobbyOne}</li>
                 <li>{hobbyTwo}</li>
                 <li>{hobbyThree}</li>

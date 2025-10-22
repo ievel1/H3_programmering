@@ -1,0 +1,12 @@
+.info-list {
+  list-style: disc;            /* show bullets */
+  list-style-position: inside; /* bullets close to text */
+  padding: 0;                  /* remove default left padding */
+  margin: 0 auto;              /* center the list block */
+  text-align: left;            /* keep text aligned nicely */
+  width: max-content;          /* shrink to content so centering works */
+}
+
+.info-list li {
+  padding: 0.5rem 0;
+}
