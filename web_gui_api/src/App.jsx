@@ -5,6 +5,7 @@ import Footer from "./components/Footer/Footer.jsx";
 import "./App.css";
 import Card from "./components/Card/Card.jsx";
 import GridContainer from "./components/GridContainer/GridContainer.jsx";
+import Counter from "./components/Counter/Counter.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -44,9 +45,7 @@ function App() {
       </div>
       
       <div className="card app-container">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <Counter count={count} />
       </div>
     </>
   );
