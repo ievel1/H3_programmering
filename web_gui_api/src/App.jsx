@@ -6,6 +6,16 @@ import "./App.css";
 import Card from "./components/Card/Card.jsx";
 import GridContainer from "./components/GridContainer/GridContainer.jsx";
 import Counter from "./components/Counter/Counter.jsx";
+const thrasherImages = import.meta.glob("./assets/thrasher*.{jpg,jpeg,png,webp}", { eager: true, as: "url" });
+import Carousel from "./components/Carousel/Carousel.jsx";
+const thrasherUrls = Object.entries(thrasherImages)
+  .sort((a, b) => {
+    const na = (a[0].match(/thrasher(\d+)/i) || [])[1] ?? "0";
+    const nb = (b[0].match(/thrasher(\d+)/i) || [])[1] ?? "0";
+    return Number(na) - Number(nb);
+  })
+  .slice(0, 3)
+  .map(([, url]) => url);
 
 function App() {
   const [count, setCount] = useState(0);
@@ -26,8 +36,8 @@ function App() {
 
   return (
     <>
+      <Header name="William S. Ford" />
       <div className="app-container">
-        <Header name="William S. Ford" />
         <GridContainer>
           {items.map((item) => (
             <Card
@@ -41,12 +51,13 @@ function App() {
             />
           ))}
         </GridContainer>
-        <Footer age={26} />
       </div>
       
       <div className="card app-container">
+        <Carousel images={thrasherUrls} width={800} height={450} />
         <Counter count={count} />
       </div>
+        <Footer age={26} />
     </>
   );
 }
