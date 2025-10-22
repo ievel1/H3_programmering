@@ -9,6 +9,9 @@
   border-radius: 12px;
   padding: 16px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  will-change: transform;
+  overflow: hidden; /* clip image zoom to card rounded corners */
 }
 
 .card_image {
@@ -16,27 +19,38 @@
   height: 160px;
   object-fit: cover;
   border-radius: 8px;
+  transition: transform 200ms ease;
+  display: block;
 }
 
-.card__title {
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+}
+.card:hover .card_image {
+  transform: scale(1.03);
+}
+
+
+.card_title {
   font-size: 1.1rem;
   margin: 4px 0 0;
 }
 
-.card__price {
+.card_price {
   font-weight: 600;
   color: #a7f3d0;          /* mint */
   margin: 0;
 }
 
-.card__desc {
+.card_desc {
   font-size: 0.95rem;
   line-height: 1.35;
   margin: 0;
   opacity: 0.9;
 }
 
-.card__btn {
+.card_btn {
   margin-top: 6px;
   padding: 8px 12px;
   border: 0;
@@ -46,6 +60,7 @@
   cursor: pointer;
 }
 
-.card__btn:hover {
+.card_btn:hover {
   background: #2563eb;
+  transform: translateY(-1px);
 }
