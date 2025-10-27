@@ -63,6 +63,5 @@ export default function Home() {
       />
       <GridContainer products={view} />
     </div>
-  )
-  
+  );
 }
