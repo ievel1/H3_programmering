@@ -4,8 +4,7 @@ export default function Navigation() {
   return (
     <nav className="navigation">
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/description">Description</NavLink>
-        <NavLink to="/product">Product Page</NavLink>
+        <NavLink to="/Products">Product Page</NavLink>
     </nav>
   )
 }
