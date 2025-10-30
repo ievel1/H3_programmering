@@ -38,7 +38,7 @@ export default function Home() {
     return products.filter((p) => (p.title || "").toLowerCase().includes(q));
   }, [products, search]);
 
-  
+
 
   if (loading) return <div>Loading...</div>;
   if (error) return <p>Error: {error}</p>;
