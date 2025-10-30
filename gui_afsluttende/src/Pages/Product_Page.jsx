@@ -18,7 +18,8 @@ export default function Product_Page() {
           );
         }
         const data = await response.json();
-        if (mounted) setProducts(data.products || []);
+        if (mounted)
+          setProducts(Array.isArray(data) ? data : (data?.results ?? []));
       } catch (err) {
         console.error("Error fetching data:", err);
         if (mounted) setError(err.message);
@@ -32,20 +33,17 @@ export default function Product_Page() {
     };
   }, []);
 
-
   const view = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return products;
     return products.filter((p) => (p.title || "").toLowerCase().includes(q));
   }, [products, search]);
 
-
   if (loading) return <div>Loading...</div>;
   if (error) return <p>Error: {error}</p>;
 
-
   return (
-        <div style={{ maxWidth: 1100, margin: "12px auto", padding: "0 16px" }}>
+    <div style={{ maxWidth: 1100, margin: "12px auto", padding: "0 16px" }}>
       <input
         type="search"
         value={search}

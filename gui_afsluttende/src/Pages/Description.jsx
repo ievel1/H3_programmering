@@ -13,7 +13,7 @@ export default function ProductDetail() {
     let mounted = true;
     async function fetchData() {
       try {
-        const response = await fetch(`https://dummyjson.com/products/${id}`);
+        const response = await fetch(`http://localhost:8000/api/products/${id}/`);
         if (!response.ok) {
           throw new Error(`Failed to fetch data: ${response.status} ${response.statusText}`);
         }
@@ -39,12 +39,14 @@ export default function ProductDetail() {
     return (
       <main style={{ padding: 16, maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
         <h1>{products.title}</h1>
+        {products.image_url && (
             <img
               className="product-image"
-              src={products.images?.[0]}
+              src={products.image_url}
               alt={products.title}
               style={{ width: "100%", maxWidth: 420, borderRadius: 8, margin: "12px 0" }}
             />
+        )}
             <p style={{ fontWeight: 700 }}className="product-price" >Price: {products.price}</p>
             <p style={{ marginTop: 8 }}className="product-desc">{products.description}</p>
         <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>

@@ -7,11 +7,9 @@ export default function GridContainer({ products, children }) {
       <div className="product-grid">
         {products.map((item) => (
           <article key={item.id} className="product-card">
-            <img
-              className="product-image"
-              src={item.images?.[0]}
-              alt={item.title}
-            />
+            {item.image_url && (
+              <img className="product-image" src={item.image_url} alt={item.title} />
+            )}
             <h3 className="product-title">{item.title}</h3>
             <p className="product-price">Price: {item.price}</p>
             <p className="product-desc">{item.description}</p>
