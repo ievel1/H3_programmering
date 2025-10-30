@@ -1,11 +1,24 @@
 import { useEffect, useState, useMemo } from "react";
+import { useLocation } from "react-router-dom";
 import GridContainer from "../components/GridContainer/GridContainer";
+
 
 export default function Product_Page() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
+  const [categoryId, setCategoryId] = useState("all");
+  const location = useLocation();
+  
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const category = params.get("category");
+    if (category) {
+      setCategoryId(category);
+    }
+    setCategoryId(category || "all");
+  }, [location.search]);
 
   useEffect(() => {
     let mounted = true;
@@ -33,15 +46,30 @@ export default function Product_Page() {
     };
   }, []);
 
+
+
   const view = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    if (!q) return products;
-    return products.filter((p) => (p.title || "").toLowerCase().includes(q));
-  }, [products, search]);
+    const query = search.trim().toLowerCase();
+    const catId = categoryId === "all" ? null : Number(categoryId);
+
+    let filtered = products;
+
+    if (catId !== null) {
+      filtered = filtered.filter((p) => p && p.category && p.category.id === catId);
+    }
+
+    if (query) {
+      filtered = filtered.filter((p) =>
+        (p.title || "").toLowerCase().includes(query)
+      );
+    }
+    return filtered;
+  }, [products, search, categoryId]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <p>Error: {error}</p>;
 
+  
   return (
     <div style={{ maxWidth: 1100, margin: "12px auto", padding: "0 16px" }}>
       <input

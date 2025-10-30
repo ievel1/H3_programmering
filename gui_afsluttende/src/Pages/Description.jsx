@@ -50,7 +50,7 @@ export default function ProductDetail() {
             <p style={{ fontWeight: 700 }}className="product-price" >Price: {products.price}</p>
             <p style={{ marginTop: 8 }}className="product-desc">{products.description}</p>
         <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
-          <button onClick={() => navigate("/")}>Go Back</button>
+          <button onClick={() => navigate("/products")}>Go Back</button>
         </div>
       </main>
   );

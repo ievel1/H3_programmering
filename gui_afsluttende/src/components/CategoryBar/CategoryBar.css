@@ -1,0 +1,34 @@
+.category-bar {
+  display: flex;
+  gap: 8px;
+  padding: 8px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.cat-btn {
+  white-space: nowrap;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .15s, border-color .15s;
+}
+.cat-btn:hover {
+  background: rgba(255,255,255,0.04);
+}
+.cat-btn.active {
+  border: 2px solid #fff;
+  background: rgba(255,255,255,0.06);
+}
+.category-bar::-webkit-scrollbar {
+  height: 6px;
+}
+.category-bar::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.08);
+  border-radius: 999px;
+}
