@@ -2,7 +2,6 @@ import { useEffect, useState, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import GridContainer from "../components/GridContainer/GridContainer";
 
-
 export default function Product_Page() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -10,7 +9,7 @@ export default function Product_Page() {
   const [search, setSearch] = useState("");
   const [categoryId, setCategoryId] = useState("all");
   const location = useLocation();
-  
+
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const category = params.get("category");
@@ -32,7 +31,7 @@ export default function Product_Page() {
         }
         const data = await response.json();
         if (mounted)
-          setProducts(Array.isArray(data) ? data : (data?.results ?? []));
+          setProducts(Array.isArray(data) ? data : data?.results ?? []);
       } catch (err) {
         console.error("Error fetching data:", err);
         if (mounted) setError(err.message);
@@ -46,8 +45,6 @@ export default function Product_Page() {
     };
   }, []);
 
-
-
   const view = useMemo(() => {
     const query = search.trim().toLowerCase();
     const catId = categoryId === "all" ? null : Number(categoryId);
@@ -55,7 +52,9 @@ export default function Product_Page() {
     let filtered = products;
 
     if (catId !== null) {
-      filtered = filtered.filter((p) => p && p.category && p.category.id === catId);
+      filtered = filtered.filter(
+        (p) => p && p.category && p.category.id === catId
+      );
     }
 
     if (query) {
@@ -69,7 +68,6 @@ export default function Product_Page() {
   if (loading) return <div>Loading...</div>;
   if (error) return <p>Error: {error}</p>;
 
-  
   return (
     <div style={{ maxWidth: 1100, margin: "12px auto", padding: "0 16px" }}>
       <input

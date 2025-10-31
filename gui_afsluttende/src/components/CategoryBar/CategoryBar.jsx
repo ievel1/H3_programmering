@@ -14,12 +14,20 @@ export default function CategoryBar() {
         const res = await fetch("http://localhost:8000/api/categories/");
         if (!res.ok) return;
         const data = await res.json();
-        if (mounted) setCategories(Array.isArray(data) ? data : (data && data.results ? data.results : []));
-      } catch (e) {
-      }
+        if (mounted)
+          setCategories(
+            Array.isArray(data)
+              ? data
+              : data && data.results
+              ? data.results
+              : []
+          );
+      } catch (e) {}
     }
     fetchCats();
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const params = new URLSearchParams(search);
@@ -39,22 +47,26 @@ export default function CategoryBar() {
 
   return (
     <div className="category-bar">
-      <button
-        className={"cat-btn" + (active === "all" ? " active" : "")}
-        onClick={() => goCategory("all")}
-      >
-        Alle kategorier
-      </button>
-
-      {categories.map((c) => (
+      <div className="container category-inner">
         <button
-          key={c.id}
-          className={"cat-btn" + (String(active) === String(c.id) ? " active" : "")}
-          onClick={() => goCategory(c.id)}
+          className={"cat-btn" + (active === "all" ? " active" : "")}
+          onClick={() => goCategory("all")}
         >
-          {c.title}
+          Alle kategorier
         </button>
-      ))}
+
+        {categories.map((c) => (
+          <button
+            key={c.id}
+            className={
+              "cat-btn" + (String(active) === String(c.id) ? " active" : "")
+            }
+            onClick={() => goCategory(c.id)}
+          >
+            {c.title}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
