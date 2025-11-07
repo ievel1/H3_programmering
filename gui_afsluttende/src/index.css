@@ -35,7 +35,7 @@ body {
   color: var(--text);
 }
 
-/* Center content like in Figma */
+
 .container {
   max-width: var(--container);
   margin: 0 auto;
@@ -57,4 +57,4 @@ button {
   cursor: pointer;
 }
 
-/* Light mode adjustments can be added later if needed */
+

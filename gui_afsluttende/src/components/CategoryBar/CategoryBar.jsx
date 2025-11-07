@@ -49,7 +49,7 @@ export default function CategoryBar() {
     <div className="category-bar">
       <div className="container category-inner">
         <button
-          className={"cat-btn" + (active === "all" ? " active" : "")}
+          className={"cat-btn"}
           onClick={() => goCategory("all")}
         >
           Alle kategorier
@@ -58,9 +58,7 @@ export default function CategoryBar() {
         {categories.map((c) => (
           <button
             key={c.id}
-            className={
-              "cat-btn" + (String(active) === String(c.id) ? " active" : "")
-            }
+            className={"cat-btn" }
             onClick={() => goCategory(c.id)}
           >
             {c.title}
