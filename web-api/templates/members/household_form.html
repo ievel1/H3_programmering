@@ -1,0 +1,11 @@
+{% extends "members/base.html" %}
+
+{% block content %}
+<h1 class="h3 mb-3">{% if object %}Redigér husstand{% else %}Opret husstand{% endif %}</h1>
+<form method="post" class="card card-body">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Gem</button>
+    <a href="{% url 'household_list' %}" class="btn btn-secondary ms-2">Tilbage</a>
+</form>
+{% endblock %}

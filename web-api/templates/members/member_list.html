@@ -1,0 +1,38 @@
+{% extends "members/base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3">Medlemmer</h1>
+    <a class="btn btn-primary" href="{% url 'member_create' %}">Opret nyt medlem</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Navn</th>
+        <th>Adresse</th>
+        <th>Alder</th>
+        <th>Passiv?</th>
+        <th>Årligt kontingent</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for m in members %}
+        <tr>
+            <td>{{ m.first_name }} {{ m.last_name }}</td>
+            <td>{{ m.street }}, {{ m.postal_code }} {{ m.city }}</td>
+            <td>{{ m.age }}</td>
+            <td>{% if m.is_passive %}Ja{% else %}Nej{% endif %}</td>
+            <td>{{ m.total_annual_fee }}</td>
+            <td>
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'member_edit' m.pk %}">Redigér</a>
+                <a class="btn btn-sm btn-outline-danger" href="{% url 'member_delete' m.pk %}">Slet</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="6">Ingen medlemmer endnu.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

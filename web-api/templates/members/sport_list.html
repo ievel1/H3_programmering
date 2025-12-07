@@ -1,0 +1,36 @@
+{% extends "members/base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3">Sportsgrene</h1>
+    <a class="btn btn-primary" href="{% url 'sport_create' %}">Opret sportsgren</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Navn</th>
+        <th>Aktiv?</th>
+        <th>Kontingent (voksen)</th>
+        <th>Kontingent (barn)</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for s in sports %}
+        <tr>
+            <td>{{ s.name }}</td>
+            <td>{% if s.is_active %}Ja{% else %}Nej{% endif %}</td>
+            <td>{{ s.annual_fee_adult }}</td>
+            <td>{{ s.annual_fee_child }}</td>
+            <td>
+                <a class="btn btn-sm btn-outline-secondary" href="{% url 'sport_edit' s.pk %}">Redigér</a>
+                <a class="btn btn-sm btn-outline-danger" href="{% url 'sport_delete' s.pk %}">Slet</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="5">Ingen sportsgrene endnu.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

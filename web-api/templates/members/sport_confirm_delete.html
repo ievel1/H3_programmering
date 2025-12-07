@@ -1,0 +1,11 @@
+{% extends "members/base.html" %}
+
+{% block content %}
+<h1 class="h3 mb-3">Slet sportsgren</h1>
+<p>Er du sikker på, at du vil slette sportsgrenen "{{ object.name }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Ja, slet</button>
+    <a href="{% url 'sport_list' %}" class="btn btn-secondary ms-2">Fortryd</a>
+</form>
+{% endblock %}
